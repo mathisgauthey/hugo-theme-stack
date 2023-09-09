@@ -1,5 +1,15 @@
 <section class="article-content">
     <!-- Refer to https://discourse.gohugo.io/t/responsive-tables-in-markdown/10639/5 -->
+    <span>
+        {{ if .IsPage}}
+        {{ if .File.Path}}
+        {{ $.Scratch.Set "FilePath" .File.Path }}
+        {{ end }}
+        {{ with .Site.Params.GithubEdit}}
+        <a href='{{ . }}{{ $.Scratch.Get "FilePath" }}' class="github-edit">Edit this page on GitHub</a>
+        {{ end }}
+        {{ end }}
+    </span>
     {{ $wrappedTable := printf "<div class=\"table-wrapper\">${1}</div>" }}
     {{ .Content | replaceRE "(<table>(?:.|\n)+?</table>)" $wrappedTable | safeHTML }}
 </section>
